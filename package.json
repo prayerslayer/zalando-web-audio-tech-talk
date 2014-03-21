@@ -1,0 +1,20 @@
+{
+  "name": "chrome-audio",
+  "version": "0.0.0",
+  "description": "\"A web server to serve files to do web audio stuff\"",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "audio"
+  ],
+  "author": "\"Nikolaus Piccolotto\"",
+  "license": "CC0",
+  "dependencies": {
+    "express": "~3.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "~1.0.17"
+  }
+}
