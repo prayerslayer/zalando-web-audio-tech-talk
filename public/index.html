@@ -7,20 +7,27 @@
 </head>
 <body>
     <div class="wrapper">
-        <h1>Hello World</h1>    
+        <h1>Web Audio <small>(doing cool stuff with js)</small></h1>  
+        <div data-action="microphone" class="btn btn-default">Use microphone</div>
+        <div>
+            <svg class="equalizer" width="750" height="200">
+            </svg>
+        </div>
         <div data-action="speech" class="btn btn-default">Recognize speech</div>
+        <div>
+            <pre class="speech"></pre>
+        </div>
+        <div class="btn btn-default">Use the keyboard, Luke</div>
+        <div class="keyboard">
+            
+        </div>
     </div>
     <script src="js/EventEmitter.js"></script>
     <script src="js/getters.js"></script>
+    <script src="js/d3.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/speech.js"></script>
-    <script>
-        $( document ).ready( function() {
-            $( "[data-action=speech]" ).on( 'click', function() {
-                recognizeSpeech().addListener( 'speech-recognized', function( result ) {
-                    console.log( result );
-                });
-            });
-        })
-    </script>
+    <script src="js/microphone.js"></script>
+    <script src="js/noise.js"></script>
+    <script src="js/handlers.js"></script>
 </body>
