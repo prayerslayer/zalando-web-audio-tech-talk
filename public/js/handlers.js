@@ -31,4 +31,64 @@ $( document ).ready( function() {
             drawLevels( result.inputBuffer.getChannelData( 0 ));
         });
     });
+    var oscillator, gain;
+    function playNote(key) {
+        gain.gain.value = 1;
+        var $this = $( key );
+        oscillator.frequency.value = parseInt( $this.attr('data-freq') );
+        // $this.data( 'old-bg', $this.css( 'background-color' ) );
+        // $this.css( 'background-color', 'red' );
+    }
+    function stopNote() {
+        if ( gain ) {
+            gain.gain.value = 0;
+        }
+        //$( this ).css( 'background-color', $( this ).data( 'old-bg') );
+    }
+    function changeWaveType() {
+        oscillator.type = parseInt($(this).val(), 10);
+    }
+
+    $( 'body' ).on( 'keydown', function(evt) {
+        var key = '';
+        switch( evt.which ) {
+            case 65: key = 'Di0'; break;
+            case 83: key = 'G0'; break;
+            case 68: key = 'B1'; break;
+            case 70: key = 'D1'; break;
+            case 71: key = 'Di1'; break;
+            default: break;
+        }
+        if ( !key )
+            return;
+        playNote( $('.keys' ).find( '.key[data-key=' + key + ']' ).first() );
+    });
+
+    $( 'body' ).on( 'keyup', function() {
+        stopNote();
+    });
+
+    $( '[data-action=keyboard]' ).on( 'click', function() {
+        var AudioContext = getAudioContext(),
+            ctx;
+        $( '.keyboard' ).removeClass('hidden');
+        if ( !AudioContext ) {
+            console.warn( 'Something went wrong with the audio context.' );
+            return;
+        }
+        ctx = new AudioContext();
+        oscillator = ctx.createOscillator();
+        oscillator.type = 2;
+        oscillator.noteOn( 0 );
+        gain = ctx.createGain();
+        gain.gain.value = 0;
+        oscillator.connect( gain );
+        gain.connect( ctx.destination );
+    });
+    $( '#wave' ).on('change', changeWaveType );
+    $( '.key' )
+        .on( 'mousedown', function() {
+            playNote($(this));
+        } )
+        .on( 'mouseup', stopNote );
 });

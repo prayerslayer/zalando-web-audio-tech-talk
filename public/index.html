@@ -17,9 +17,41 @@
         <div>
             <pre class="speech"></pre>
         </div>
-        <div class="btn btn-default">Use the keyboard, Luke</div>
-        <div class="keyboard">
-            
+        <div data-action="keyboard" class="btn btn-default">Use the keyboard, Luke</div>
+        <div class="keyboard hidden">
+            <label for="wave">Type of wave</label>
+            <select name="wave" id="wave">
+                <option value="0">Sine</option>
+                <option value="1">Square</option>
+                <option value="2" selected>Sawtooth</option>
+                <option value="3">Triangle</option>
+            </select>
+            <div class="keys">
+                <div class="key" data-key="A0" data-freq="27.5">A</div>
+                <div class="key" data-key="B0" data-freq="29.1353">B</div>
+                <div class="key" data-key="H0" data-freq="30.8677">H</div>
+                <div class="key" data-key="C0" data-freq="32.7032">C</div>
+                <div class="key" data-key="Ci0" data-freq="34.6479">Ci</div>
+                <div class="key" data-key="D0" data-freq="36.7081">D</div>
+                <div class="key special" data-key="Di0" data-freq="38.8909">Di</div>
+                <div class="key" data-key="E0" data-freq="41.2035">E</div>
+                <div class="key" data-key="F0" data-freq="43.6536">F</div>
+                <div class="key special" data-key="G0" data-freq="46.2493">G</div>
+                <div class="key" data-key="Gi0" data-freq="48.9995">Gi</div>
+                <div class="key" data-key="A1" data-freq="51.9130">A1</div>
+                <div class="key special" data-key="B1" data-freq="55.0000">B</div>
+                <div class="key" data-key="H1" data-freq="58.2705">H</div>
+                <div class="key" data-key="C1" data-freq="61.7354">C</div>
+                <div class="key" data-key="Ci1" data-freq="69.2957">Ci</div>
+                <div class="key special" data-key="D1" data-freq="73.4162">D</div>
+                <div class="key special" data-key="Di1" data-freq="77.7817">Di</div>
+                <div class="key" data-key="E1" data-freq="82.4069">E</div>
+                <div class="key" data-key="F1" data-freq="87.3071">F</div>
+                <div class="key" data-key="Fi1" data-freq="92.4986">Fi</div>
+                <div class="key" data-key="G1" data-freq="97.9989">G</div>
+                <div class="key" data-key="Gi1" data-freq="103.826">Gi</div>
+                <div class="key" data-key="A1" data-freq="110.000">A2</div>
+            </div>
         </div>
     </div>
     <script src="js/EventEmitter.js"></script>
