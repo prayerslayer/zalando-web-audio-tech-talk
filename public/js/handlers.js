@@ -31,20 +31,28 @@ $( document ).ready( function() {
             drawLevels( result.inputBuffer.getChannelData( 0 ));
         });
     });
+
     var oscillator, gain;
-    function playNote(key) {
+
+    function playNote( key ) {
+        // 100 % volume
         gain.gain.value = 1;
         var $this = $( key );
-        oscillator.frequency.value = parseInt( $this.attr('data-freq') );
-        // $this.data( 'old-bg', $this.css( 'background-color' ) );
-        // $this.css( 'background-color', 'red' );
+        // set frequency
+        oscillator.frequency.value = parseFloat( $this.attr('data-freq') );
+        // highlight keyboard key
+        $this.css( 'border', '2px solid red' );
     }
+
     function stopNote() {
+        // mute again
         if ( gain ) {
             gain.gain.value = 0;
         }
-        //$( this ).css( 'background-color', $( this ).data( 'old-bg') );
+        // reset style
+        $( '.key' ).css( 'border', '1px solid black' );
     }
+
     function changeWaveType() {
         oscillator.type = parseInt($(this).val(), 10);
     }
@@ -52,16 +60,17 @@ $( document ).ready( function() {
     $( 'body' ).on( 'keydown', function(evt) {
         var key = '';
         switch( evt.which ) {
-            case 65: key = 'Di0'; break;
-            case 83: key = 'G0'; break;
-            case 68: key = 'B1'; break;
-            case 70: key = 'D1'; break;
-            case 71: key = 'Di1'; break;
+            case 65: key = 13; break;    // A => A1
+            case 66: key = 12; break;    // B => Ab1
+            case 67: key = 16; break;    // C => C2 
+            case 69: key = 20; break;    // E => E2
+            case 70: key =  9; break;    // F => F1
+            case 71: key = 21; break;    // G => F2
             default: break;
         }
         if ( !key )
             return;
-        playNote( $('.keys' ).find( '.key[data-key=' + key + ']' ).first() );
+        playNote( $( '.key[data-key=' + key + ']' ).first() );
     });
 
     $( 'body' ).on( 'keyup', function() {
@@ -70,25 +79,46 @@ $( document ).ready( function() {
 
     $( '[data-action=keyboard]' ).on( 'click', function() {
         var AudioContext = getAudioContext(),
-            ctx;
-        $( '.keyboard' ).removeClass('hidden');
+            ctx,
+            $keyboard = $( '.keyboard' ),
+            $keys = $keyboard.find( '.keys' );
+
         if ( !AudioContext ) {
             console.warn( 'Something went wrong with the audio context.' );
             return;
         }
+
+        // create audiocontext
         ctx = new AudioContext();
+        // create oscillator audio source
         oscillator = ctx.createOscillator();
+        // set waveform to sawtooth
         oscillator.type = 2;
+        // play a note
         oscillator.noteOn( 0 );
+        // but mute it
         gain = ctx.createGain();
         gain.gain.value = 0;
+        // connect audio nodes
         oscillator.connect( gain );
         gain.connect( ctx.destination );
+
+        // construct keys
+        for( var n = 9; n <= 26; n++ ) {
+            var f = getFrequencyForKey( n ),
+                $domKey = $( document.createElement( 'div' ) );
+
+            $domKey
+                .attr( 'class', 'key' )
+                .attr( 'data-freq', f )
+                .attr( 'data-key', n )
+                .on( 'mousedown', function() {
+                    playNote( $( this ) );
+                })
+                .on( 'mouseup', stopNote )
+                .text( n );
+            $keys.append( $domKey );
+        }
     });
     $( '#wave' ).on('change', changeWaveType );
-    $( '.key' )
-        .on( 'mousedown', function() {
-            playNote($(this));
-        } )
-        .on( 'mouseup', stopNote );
 });

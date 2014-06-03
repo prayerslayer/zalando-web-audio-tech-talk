@@ -22,3 +22,8 @@ function getSpeechRecognition() {
             window.mozSpeechRecognition ||
             window.msSpeechRecognition;
 }
+
+// source http://en.wikipedia.org/wiki/Piano_key_frequencies
+function getFrequencyForKey( key ) {
+    return Math.pow( 2, ( key - 49 ) / 12 ) * 440;
+}
