@@ -1,8 +1,15 @@
-# Chrome Audio
+# Examples for Web Audio Tech Talk @ Zalando
 
-Web Audio in Chrome Browser.
+Including
 
-# TODO
+* Web Audio API
+* User Media API
+* Web Speech API
 
-* Deutsche Spracherkennung? Gut, schlecht?
-* Beispiel mit deutscher Spracherkennung
+# Usage
+
+* Check out the repository
+* [Install Node](https://github.com/joyent/node/wiki/installation) on your system
+* Install necessary packages ``npm install``
+* Run ``nodemon app.js``
+* The examples are now running on ``http://localhost:3000``

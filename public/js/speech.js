@@ -27,8 +27,8 @@ function recognizeSpeech() {
     recognizer.onspeechend = function( evt ) {
         console.debug( 'speechend', evt );
     }
-    recognizer.continuous = true;
-    // recognizer.lang = 'de-DE';
+    recognizer.continuous = false;
+    // recognizer.lang = 'en-US';
     recognizer.start();
 
     return emitter;
